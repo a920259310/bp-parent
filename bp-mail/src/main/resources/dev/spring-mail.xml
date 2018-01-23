@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2014 abel533@gmail.com
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in
+  ~ all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  ~ THE SOFTWARE.
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.lxf.bp.mail.service.impl"></context:component-scan>
+
+    <context:property-placeholder location="classpath:spring-mail.properties"></context:property-placeholder>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${bp.send.mail.host}" />
+        <property name="username" value="${bp.send.mail.username}" />
+        <property name="password" value="${bp.send.mail.password}" />
+        <property name="defaultEncoding" value="${bp.send.mail.defaultEncoding}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">${bp.send.mail.smtp.auth}</prop>
+                <prop key="mail.smtp.timeout">${bp.send.mail.smtp.timeout}</prop>
+                <prop key="mail.smtp.port">${bp.send.mail.smtp.port}</prop>
+                <prop key="mail.smtp.socketFactory.port">${bp.send.mail.smtp.socketFactory.port}</prop>
+                <prop key="mail.smtp.socketFactory.fallback">${bp.send.mail.smtp.socketFactory.fallback}</prop>
+                <prop key="mail.smtp.socketFactory.class">${bp.send.mail.smtp.socketFactory.class}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean class="com.lxf.bp.mail.config.MailEnvConfig">
+        <property name="formName" value="lian920259310@163.com"></property>
+    </bean>
+
+</beans>
